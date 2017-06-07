@@ -5,16 +5,16 @@ class ExampleForm extends React.Component {
         return (
             <form>
                   <div className="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label htmlFor="exampleInputEmail1">Email address</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
                   <div className="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label htmlFor="exampleInputPassword1">Password</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                   </div>
                   <div className="form-group">
-                    <label for="exampleTextarea">Example textarea</label>
+                    <label htmlFor="exampleTextarea">Example textarea</label>
                     <textarea className="form-control" id="exampleTextarea" rows="3"></textarea>
                   </div>
                   <div className="form-group">
