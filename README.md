@@ -25,7 +25,7 @@ The central repo will contain all the notebooks
 ## Hierarchy of Entities
 
 #### Main entities follow the below hierarchy:
-![Entity Hierarchy](/Entity Hierarchy.jpg)
+(/eh.jpg)
 
 
 The project is still under development, stay tuned
