@@ -35,7 +35,7 @@ rules:
     "objects": "always-multiline",
     "imports": "always-multiline",
     "exports": "always-multiline",
-    "functions": "never"
+    "functions": "ignore"
   }]
   jsx-quotes: [2, "prefer-single"]
   react/forbid-prop-types: 0

@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "semantic-ui-less/semantic.less";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import logger from 'dev/logger';
-
 import rootReducer from 'reducers';
-
-import App from 'views/App';
-
+import App from 'views/App/index';
+import '../css/styles.css';
 // Load SCSS
-import '../scss/app.scss';
+// import '../scss/app.scss';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -48,11 +47,10 @@ if (isProduction) {
   );
 }
 
-
 // Render it to DOM
 ReactDOM.render(
   <Provider store={ store }>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('app')
 );

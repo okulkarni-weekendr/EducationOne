@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { testAction, testAsync } from 'actions/app';
-import Icon from 'components/Global/Icon';
-import bookImg from '../../../assets/img/book2.jpg';
+// import Icon from 'components/Global/Icon';
+// import bookImg from '../../../assets/img/book2.jpg';
 
 @connect(state => ({
   asyncData: state.app.get('asyncData'),
@@ -11,6 +11,7 @@ import bookImg from '../../../assets/img/book2.jpg';
   asyncLoading: state.app.get('asyncLoading'),
   counter: state.app.get('counter'),
 }))
+
 export default class Dashboard extends Component {
   static propTypes = {
     asyncData: PropTypes.string,
@@ -23,7 +24,6 @@ export default class Dashboard extends Component {
 
   constructor() {
     super();
-
     this.handleAsyncButtonClick = this.handleAsyncButtonClick.bind(this);
     this.handleTestButtonClick = this.handleTestButtonClick.bind(this);
   }
@@ -50,13 +50,6 @@ export default class Dashboard extends Component {
 
     return (
       <div className='Dashboard'>
-        <h1>Marvin</h1>
-        <p>
-          Boilerplate for kicking off React/Redux applications.
-        </p>
-
-        <hr />
-
         <h2>Examples</h2>
 
         <h3>Synchronous action</h3>
@@ -86,16 +79,9 @@ export default class Dashboard extends Component {
         </div>
 
         <h3>Image imported to the component</h3>
-        <div className='Example'>
-          <img src={ bookImg } alt='' className='ImgExample' />
-        </div>
 
         <h3>SVG sprite icon set</h3>
-        <div className='Example'>
-          <Icon glyph='square' />
-          <Icon glyph='circle' />
-          <Icon glyph='triangle' />
-        </div>
+
       </div>
     );
   }

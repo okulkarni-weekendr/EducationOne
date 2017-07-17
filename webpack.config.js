@@ -12,8 +12,8 @@ const isProduction = nodeEnv === 'production';
 
 const jsSourcePath = path.join(__dirname, './source/js');
 const buildPath = path.join(__dirname, './build');
-const imgPath = path.join(__dirname, './source/assets/img');
-const iconPath = path.join(__dirname, './source/assets/icons');
+// const imgPath = path.join(__dirname, './source/assets/img');
+// const iconPath = path.join(__dirname, './source/assets/icons');
 const sourcePath = path.join(__dirname, './source');
 
 
@@ -52,6 +52,9 @@ const plugins = [
       context: sourcePath,
     },
   }),
+  new ExtractTextPlugin({
+    filename: '[name].[contenthash].css',
+  })
 ];
 
 // Common rules
@@ -64,24 +67,25 @@ const rules = [
     ],
   },
   {
-    test: /\.svg$/,
-    use: [
-      {
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: 'icons-sprite.svg',
-        },
-      },
-      'svgo-loader',
-    ],
-    include: iconPath,
+    use: ExtractTextPlugin.extract({
+      use: ['css-loader', 'less-loader']
+    }),
+    test: /\.less$/
   },
   {
-    test: /\.(png|gif|jpg|svg)$/,
-    include: imgPath,
-    use: 'url-loader?limit=20480&name=assets/[name]-[hash].[ext]',
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract({
+      fallback: "style-loader", use: "css-loader"
+    })
   },
+  {
+    test: /\.jpe?g$|\.gif$|\.png$|\.ttf$|\.eot$|\.svg$/,
+    use: 'file-loader?name=[name].[ext]?[hash]'
+  },
+  {
+    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url-loader?limit=10000&mimetype=application/fontwoff'
+  }
 ];
 
 if (isProduction) {
@@ -126,21 +130,21 @@ if (isProduction) {
 
   // Development rules
   rules.push(
-    {
-      test: /\.scss$/,
-      exclude: /node_modules/,
-      use: [
-        'style-loader',
-        // Using source maps breaks urls in the CSS loader
-        // https://github.com/webpack/css-loader/issues/232
-        // This comment solves it, but breaks testing from a local network
-        // https://github.com/webpack/css-loader/issues/232#issuecomment-240449998
-        // 'css-loader?sourceMap',
-        'css-loader',
-        'postcss-loader',
-        'sass-loader?sourceMap',
-      ],
-    }
+    // {
+    //   test: /\.scss$/,
+    //   exclude: /node_modules/,
+    //   use: [
+    //     'style-loader',
+    //     // Using source maps breaks urls in the CSS loader
+    //     // https://github.com/webpack/css-loader/issues/232
+    //     // This comment solves it, but breaks testing from a local network
+    //     // https://github.com/webpack/css-loader/issues/232#issuecomment-240449998
+    //     // 'css-loader?sourceMap',
+    //     'css-loader',
+    //     'postcss-loader',
+    //     'sass-loader?sourceMap',
+    //   ],
+    // }
   );
 }
 
@@ -152,7 +156,7 @@ module.exports = {
   },
   output: {
     path: buildPath,
-    publicPath: '/',
+    publicPath: "http://localhost:3000/",
     filename: 'app-[hash].js',
   },
   module: {
@@ -164,6 +168,9 @@ module.exports = {
       path.resolve(__dirname, 'node_modules'),
       jsSourcePath,
     ],
+    alias: {
+      '../../theme.config$': path.join(__dirname, 'my-semantic-theme/theme.config')
+    }
   },
   plugins,
   devServer: {
